@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twitter Mock Implementation Progress</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f0f2f5;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #1da1f2;
+      }
+      .week-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .week-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .week-card:hover {
+        transform: translateY(-5px);
+      }
+      .week-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .week-title {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #14171a;
+      }
+      .progress-bar {
+        width: 100%;
+        height: 10px;
+        background: #e1e8ed;
+        border-radius: 5px;
+        margin: 10px 0;
+      }
+      .progress {
+        height: 100%;
+        background: #1da1f2;
+        border-radius: 5px;
+        transition: width 0.3s ease;
+      }
+      .tasks {
+        display: none;
+        margin-top: 15px;
+      }
+      .task-item {
+        padding: 8px 0;
+        border-bottom: 1px solid #e1e8ed;
+      }
+      .task-item:last-child {
+        border-bottom: none;
+      }
+      .status {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.8em;
+      }
+      .status-planning {
+        background: #ffd700;
+      }
+      .status-in-progress {
+        background: #87ceeb;
+      }
+      .status-completed {
+        background: #90ee90;
+      }
+      .legend {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .legend-color {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+      }
+      .modal-content {
+        position: relative;
+        background: white;
+        width: 80%;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        border-radius: 10px;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+      .close-btn {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        font-size: 24px;
+        cursor: pointer;
+      }
+      .preview-section {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #e1e8ed;
+        border-radius: 8px;
+      }
+      .mock-ui {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 10px 0;
+      }
+      .mock-tweet {
+        border: 1px solid #e1e8ed;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 10px 0;
+        background: white;
+      }
+      .mock-input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #e1e8ed;
+        border-radius: 4px;
+        margin: 5px 0;
+      }
+      .mock-button {
+        background: #1da1f2;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        margin: 5px 0;
+      }
+      .mock-profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        border-bottom: 1px solid #e1e8ed;
+      }
+      .mock-avatar {
+        width: 40px;
+        height: 40px;
+        background: #1da1f2;
+        border-radius: 50%;
+      }
+      .code-preview {
+        background: #282c34;
+        color: #abb2bf;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: monospace;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Twitter Mock Implementation Progress</h1>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-color" style="background: #ffd700"></div>
+        <span>Planning</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #87ceeb"></div>
+        <span>In Progress</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #90ee90"></div>
+        <span>Completed</span>
+      </div>
+    </div>
+
+    <div class="week-container" id="weekContainer">
+      <!-- Week cards will be dynamically inserted here -->
+    </div>
+
+    <div id="previewModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+
+    <script>
+      const weeks = [
+        {
+          title: "Week 0 - Kickoff",
+          progress: 100,
+          status: "completed",
+          tasks: [
+            "Scope Discussion",
+            "Wireframes & Design",
+            "Set Up Repositories",
+          ],
+          preview: `
+                    <h2>Project Setup & Design</h2>
+                    <div class="preview-section">
+                        <h3>System Architecture</h3>
+                        <div class="code-preview">
+                        Frontend (React + Redux)
+        ├── Authentication
+        ├── Tweet Management
+        ├── User Following
+        └── Search
+        
+        Backend (Spring Boot Microservices)
+        ├── Auth Service
+        ├── Tweet Service
+        ├── Follow Service
+        └── Search Service
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <h3>Database Schema</h3>
+                        <div class="code-preview">
+                        User {
+            id: ObjectId,
+            username: String,
+            email: String,
+            following: [ObjectId],
+            followers: [ObjectId]
+        }
+
+        Tweet {
+            id: ObjectId,
+            userId: ObjectId,
+            content: String,
+            timestamp: DateTime,
+            likes: [ObjectId]
+        }
+                        </div>
+                    </div>
+                `,
+        },
+        {
+          title: "Week 1 - Authentication",
+          progress: 75,
+          status: "in-progress",
+          tasks: [
+            "Implement Firebase Authentication",
+            "Create Spring Boot Auth API",
+            "Build Login/Registration Forms",
+          ],
+          preview: `
+                    <h2>Authentication System</h2>
+                    <div class="preview-section">
+                        <h3>Login Form</h3>
+                        <div class="mock-ui">
+                            <input type="email" placeholder="Email" class="mock-input">
+                            <input type="password" placeholder="Password" class="mock-input">
+                            <button class="mock-button">Login</button>
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <h3>Registration Form</h3>
+                        <div class="mock-ui">
+                            <input type="text" placeholder="Username" class="mock-input">
+                            <input type="email" placeholder="Email" class="mock-input">
+                            <input type="password" placeholder="Password" class="mock-input">
+                            <input type="password" placeholder="Confirm Password" class="mock-input">
+                            <button class="mock-button">Register</button>
+                        </div>
+                    </div>
+                `,
+        },
+        {
+          title: "Week 2 - Tweet Management",
+          progress: 50,
+          status: "in-progress",
+          tasks: [
+            "Create CRUD API for tweets",
+            "Build Tweet Creation Modal",
+            "Implement Tweet Feed",
+          ],
+          preview: `
+                    <h2>Tweet Management System</h2>
+                    <div class="preview-section">
+                        <h3>Create Tweet</h3>
+                        <div class="mock-ui">
+                            <textarea class="mock-input" placeholder="What's happening?"></textarea>
+                            <button class="mock-button">Tweet</button>
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <h3>Tweet Feed</h3>
+                        <div class="mock-ui">
+                            <div class="mock-tweet">
+                                <div class="mock-profile">
+                                    <div class="mock-avatar"></div>
+                                    <div>
+                                        <strong>John Doe</strong>
+                                        <span>@johndoe</span>
+                                    </div>
+                                </div>
+                                <p>Just deployed my first microservice! #coding #cloud</p>
+                            </div>
+                            <div class="mock-tweet">
+                                <div class="mock-profile">
+                                    <div class="mock-avatar"></div>
+                                    <div>
+                                        <strong>Jane Smith</strong>
+                                        <span>@janesmith</span>
+                                    </div>
+                                </div>
+                                <p>Learning Spring Boot and loving it! 🚀</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+        },
+        {
+          title: "Week 3 - Follow System",
+          progress: 25,
+          status: "planning",
+          tasks: [
+            "Implement Graph-based APIs",
+            "Build Followers/Following List",
+            "Implement Follow/Unfollow",
+          ],
+          preview: `
+                    <h2>Follow System</h2>
+                    <div class="preview-section">
+                        <h3>User Profile</h3>
+                        <div class="mock-ui">
+                            <div class="mock-profile">
+                                <div class="mock-avatar"></div>
+                                <div>
+                                    <h3>John Doe</h3>
+                                    <p>@johndoe</p>
+                                    <p>Followers: 1.2K | Following: 891</p>
+                                </div>
+                                <button class="mock-button">Follow</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <h3>Followers List</h3>
+                        <div class="mock-ui">
+                            <div class="mock-profile">
+                                <div class="mock-avatar"></div>
+                                <div>
+                                    <strong>Alice Johnson</strong>
+                                    <p>@alice</p>
+                                </div>
+                                <button class="mock-button">Follow Back</button>
+                            </div>
+                            <div class="mock-profile">
+                                <div class="mock-avatar"></div>
+                                <div>
+                                    <strong>Bob Wilson</strong>
+                                    <p>@bobw</p>
+                                </div>
+                                <button class="mock-button">Following</button>
+                            </div>
+                        </div>
+                    </div>
+                `,
+        },
+        {
+          title: "Week 4 - Timeline Feed",
+          progress: 0,
+          status: "planning",
+          tasks: [
+            "Aggregate tweets from followed users",
+            "Implement Redis caching",
+            "Build Home Timeline Feed",
+          ],
+          preview: `
+                    <h2>Timeline Feed System</h2>
+                    <div class="preview-section">
+                        <h3>Home Timeline</h3>
+                        <div class="mock-ui">
+                            <div class="mock-tweet">
+                                <div class="mock-profile">
+                                    <div class="mock-avatar"></div>
+                                    <div>
+                                        <strong>Tech News</strong>
+                                        <span>@technews</span>
+                                    </div>
+                                </div>
+                                <p>Breaking: New features announced! #tech</p>
+                            </div>
+                            <div class="mock-tweet">
+                                <div class="mock-profile">
+                                    <div class="mock-avatar"></div>
+                                    <div>
+                                        <strong>Developer Tips</strong>
+                                        <span>@devtips</span>
+                                    </div>
+                                </div>
+                                <p>10 must-know Spring Boot features! #java #springboot</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <h3>Redis Caching Architecture</h3>
+                        <div class="code-preview">
+                        Timeline Cache {
+            userId: String,
+            tweets: [{
+                id: String,
+                content: String,
+                timestamp: DateTime
+            }],
+            expiresIn: 3600 // 1 hour
+        }
+                        </div>
+                    </div>
+                `,
+        },
+        {
+          title: "Week 5 - Search",
+          progress: 0,
+          status: "planning",
+          tasks: [
+            "Implement Trie for hashtags",
+            "Create Inverted Index",
+            "Build Search UI",
+          ],
+          preview: `
+                    <h2>Search System</h2>
+                    <div class="preview-section">
+                        <h3>Search Interface</h3>
+                        <div class="mock-ui">
+                            <input type="text" placeholder="Search Twitter" class="mock-input">
+                            <div class="mock-tweet">
+                                <strong>Trending Hashtags</strong>
+                                <p>#coding</p>
+                                <p>#java</p>
+                                <p>#springboot</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <h3>Search Results</h3>
+                        <div class="mock-ui">
+                            <div class="mock-tweet">
+                                <div class="mock-profile">
+                                    <div class="mock-avatar"></div>
+                                    <div>
+                                        <strong>Java Dev</strong>
+                                        <span>@javadev</span>
+                                    </div>
+                                </div>
+                                <p>Check out this new #java feature!</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+        },
+        {
+          title: "Week 6 - Integration",
+          progress: 0,
+          status: "planning",
+          tasks: [
+            "Integrate all microservices",
+            "Deploy to Google Cloud",
+            "Set up CI/CD pipelines",
+          ],
+          preview: `
+                    <h2>System Integration</h2>
+                    <div class="preview-section">
+                        <h3>Cloud Architecture</h3>
+                        <div class="code-preview">
+                        Google Cloud Platform
+        ├── Cloud Run
+        │   ├── Auth Service
+        │   ├── Tweet Service
+        │   ├── Follow Service
+        │   └── Search Service
+        ├── Cloud SQL
+        │   └── User & Tweet Data
+        ├── Redis Cache
+        │   └── Timeline Data
+        └── Cloud Storage
+            └── Media Files
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <h3>CI/CD Pipeline</h3>
+                        <div class="code-preview">
+                        GitHub Actions Pipeline
+        ├── Build
+        │   ├── Compile
+        │   └── Test
+        ├── Package
+        │   └── Docker Image
+        └── Deploy
+            └── Cloud Run
+                        </div>
+                    </div>
+                `,
+        },
+      ];
+
+      function createWeekCard(week) {
+        const card = document.createElement("div");
+        card.className = "week-card";
+
+        const statusClass = `status-${week.status}`;
+
+        card.innerHTML = `
+                <div class="week-header">
+                    <div class="week-title">${week.title}</div>
+                    <span class="status ${statusClass}">${week.status}</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: ${
+                      week.progress
+                    }%"></div>
+                </div>
+                <div class="tasks">
+                    ${week.tasks
+                      .map(
+                        (task) => `
+                        <div class="task-item">• ${task}</div>
+                    `
+                      )
+                      .join("")}
+                </div>
+            `;
+
+        card.addEventListener("click", () => {
+          showPreview(week);
+        });
+
+        return card;
+      }
+
+      function showPreview(week) {
+        const modal = document.getElementById("previewModal");
+        const modalContent = document.getElementById("modalContent");
+        modalContent.innerHTML = week.preview;
+        modal.style.display = "block";
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("previewModal");
+        modal.style.display = "none";
+      }
+
+      function initializeWeeks() {
+        const container = document.getElementById("weekContainer");
+        weeks.forEach((week) => {
+          container.appendChild(createWeekCard(week));
+        });
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function (event) {
+        const modal = document.getElementById("previewModal");
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      initializeWeeks();
+    </script>
+  </body>
+</html>
