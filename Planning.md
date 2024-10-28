@@ -1,224 +1,98 @@
-```markdown
-# **Comprehensive Plan for Twitter-like Application with DSA and System Design**
-
-This plan ensures that students can **work independently in a local setup**, while the instructor **demos advanced cloud concepts** using their code in cloud environments. All cloud services are replaced with **local alternatives**, ensuring continuity in learning without dependency on the internet or cloud access. Below is the **week-by-week breakdown** with objectives, student focus, and local alternatives.
+## **Frontend vs. Backend: Data Structures & Algorithms (DSA) Usage**
 
 ---
 
-## **Week 1: Local Setup and Basic Project Structure**
+### **Week 1: User Profiles and Authentication (Auth Microservice)**
 
-### **Objectives**
-- Set up **local environments** for both backend and frontend.
-- Establish project structure with **Spring Boot (Backend)** and **React (Frontend)**.
-- Integrate PostgreSQL for relational data storage.
-- Initialize version control using **Git/GitHub**.
+#### **Frontend (React):**
+- **Hash Maps:** Manage form state (e.g., username-password pairs) using state objects.
+- **Form Validation Algorithms:** Validate user input on the frontend before sending requests (e.g., regex for email validation).
 
-### **Instructor Demo (Cloud)**
-- Setup of **PostgreSQL on Google Cloud**.
-- Overview of **Redis in cloud environments** for caching sessions.
-
-### **Student Focus**
-- Install and configure **PostgreSQL, Redis, and Kafka** locally via Docker.
-- Initialize **Git repositories** and push code to GitHub.
-- Set up **React project** with essential dependencies.
-- Create basic **Spring Boot project** with PostgreSQL connectivity.
-
-### **DSA Concepts Covered**
-- **Hash Tables:** Store user sessions in **Redis**.
-- **Arrays/Lists:** Handle collections of tweets and user data.
-
-### **Local Setup Alternatives**
-- **PostgreSQL:** Run locally or via Docker.
-- **Redis:** Install Redis locally using Docker.
-- **Kafka:** Use Kafka container for message handling.
+#### **Backend (Spring Boot):**
+- **Hash Maps:** Store user sessions and tokens in-memory.
+- **Encryption Algorithms:** Use hashing algorithms (e.g., BCrypt) for password encryption.
+- **Trees (JWT Parsing):** Parse JSON Web Tokens (JWT) as part of authentication.
 
 ---
 
-## **Week 2: Authentication and User Profiles**
+### **Week 2: Tweet Posting and Retrieval (Tweet Microservice)**
 
-### **Objectives**
-- Implement **JWT-based authentication** with Spring Security.
-- Develop user **registration and login functionality**.
-- Create **profile management** APIs and frontend components.
+#### **Frontend (React):**
+- **Arrays:** Store tweets and dynamically render them in the feed.
+- **Sorting Algorithms:** Apply sorting (e.g., by timestamp) to display the latest tweets first.
 
-### **Instructor Demo (Cloud)**
-- Show **Redis caching** for session storage in the cloud.
-- Demo user authentication using **Google Identity services**.
-
-### **Student Focus**
-- Develop backend APIs for **user registration, login**, and **profile updates**.
-- Integrate **JWT authentication** locally.
-- Implement **file upload system** for profile pictures using local storage.
-
-### **DSA Concepts Covered**
-- **Hashing Algorithms:** Use BCrypt for password encryption.
-- **Linked Lists:** Manage sequences of user profile updates.
-
-### **Local Setup Alternatives**
-- Use **local Redis cache** for session management.
-- Store uploaded files in **local filesystem (`/uploads` folder)**.
+#### **Backend (Spring Boot):**
+- **B-Trees / Indexes:** Store and query tweets efficiently in the database.
+- **Linked Lists:** Store tweets in order of posting.
+- **Pagination Algorithms:** Implement pagination for tweet retrieval (e.g., returning 10 tweets per page).
 
 ---
 
-## **Week 3: CRUD Operations and Timeline**
+### **Week 3: Following System (Follow Microservice)**
 
-### **Objectives**
-- Implement **CRUD operations** for Tweets.
-- Build the **home timeline** with pagination or infinite scrolling.
+#### **Frontend (React):**
+- **Graphs (Adjacency List Representation):** Maintain local state of user relationships (followers/following).
+- **Debounce/Throttling Algorithms:** Optimize API calls when users perform actions like follow/unfollow.
 
-### **Instructor Demo (Cloud)**
-- Demonstrate real-time messaging using **Kafka + Google Pub/Sub**.
-- Use **BigQuery** for querying analytics on tweets.
-
-### **Student Focus**
-- Build CRUD APIs for **Tweet operations**.
-- Implement **timeline components** with React and integrate pagination.
-- Use **Kafka locally** to simulate asynchronous notifications.
-
-### **DSA Concepts Covered**
-- **Queues:** Use a queue to manage timeline updates (FIFO).
-- **Sorting Algorithms:** Sort tweets by timestamp in the timeline.
-
-### **Local Setup Alternatives**
-- Use **Apache Kafka Docker** container for messaging.
-- Simulate real-time notifications with **local message queues**.
+#### **Backend (Spring Boot):**
+- **Graphs (Adjacency List):** Store and manage user relationships.
+- **Hash Maps:** Cache relationship lookups to improve performance.
+- **Graph Traversal Algorithms (BFS/DFS):** Use for suggesting mutual followers.
 
 ---
 
-## **Week 4: User Relationships and Search Functionality**
+### **Week 4: Timeline Feed Generation (Feed Microservice)**
 
-### **Objectives**
-- Implement **Follow/Unfollow system**.
-- Develop **search functionality** with autocomplete.
-
-### **Instructor Demo (Cloud)**
-- Use **Elasticsearch** for advanced search functionality.
-- Show **FlockDB (Graph database)** to model relationships in cloud.
-
-### **Student Focus**
-- Build **Follow/Unfollow APIs** and integrate them in React.
-- Implement **search bar with filters** using local SQL queries.
-
-### **DSA Concepts Covered**
-- **Graphs:** Use **adjacency lists** to model user relationships.
-- **Binary Search:** Optimize search operations locally.
-
-### **Local Setup Alternatives**
-- Use **SQLite or PostgreSQL** for local search queries.
-- Implement **graph models with SQL joins** to represent relationships.
+#### **Frontend (React):**
+- **Priority Queue:** Use local state to manage and render sorted tweets.
+- **Merge Sort:** Implement sorting within components to merge multiple tweet lists for display.
+  
+#### **Backend (Spring Boot):**
+- **Priority Queue / Heap:** Efficiently manage and sort tweets by timestamp.
+- **Merge Sort Algorithm:** Merge tweets from followed users into a single feed.
+- **Caching Algorithms:** Use **Redis** to cache sorted feed data.
 
 ---
 
-## **Week 5: Caching, Load Balancing, and Monitoring**
+### **Week 5: Hashtags and Search Functionality (Search Microservice)**
 
-### **Objectives**
-- Implement **caching for timelines** and tweets to improve performance.
-- Use **load balancing** to distribute traffic between multiple services.
-- Set up **monitoring** to track application performance.
+#### **Frontend (React):**
+- **Trie Data Structure:** Handle hashtag autocomplete on the frontend.
+- **Inverted Index (Search State):** Store local search results for quick re-rendering.
+- **Search Algorithms:** Implement keyword-based search filtering on the frontend.
 
-### **Instructor Demo (Cloud)**
-- Demonstrate **Pelikan cache** and Redis usage in production.
-- Use **Nginx** load balancing for cloud instances.
-- Monitor services using **Zipkin and Splunk**.
-
-### **Student Focus**
-- Set up **local Redis cache** to store frequently accessed data.
-- Configure **Nginx locally** for load balancing requests.
-- Integrate **Zipkin for request tracing** in the backend.
-
-### **DSA Concepts Covered**
-- **Hash Tables + Caching:** Implement LRU cache using Redis.
-- **Load Balancing with Graphs:** Use graphs to distribute load efficiently.
-
-### **Local Setup Alternatives**
-- Run **Redis and Zipkin** locally with Docker.
-- Use **Nginx** to simulate load balancing on localhost.
+#### **Backend (Spring Boot):**
+- **Trie:** Store hashtags for efficient prefix-based search.
+- **Inverted Index:** Map keywords/hashtags to relevant tweets.
+- **Search Query Optimization Algorithms:** Efficiently retrieve search results from the backend.
 
 ---
 
-## **Week 6: Scaling and Optimization**
+### **Week 6: Integration, Review, and Cloud Deployment**
 
-### **Objectives**
-- Optimize database queries and caching strategies.
-- Handle **high-traffic scenarios** (e.g., New Year’s Eve surge).
-- Implement **sharded counters** to manage interaction counts.
+#### **Frontend (React):**
+- **Sets:** Track the state of active users and microservice statuses in the UI.
+- **Local Caching (LRU Cache):** Implement caching for frequently accessed UI components (e.g., timelines).
 
-### **Instructor Demo (Cloud)**
-- Demonstrate **sharded counters** in Google Cloud.
-- Use **consistent hashing** for load balancing.
-
-### **Student Focus**
-- Optimize **SQL queries with indexes**.
-- Simulate **sharded counters locally** for tweet likes and views.
-- Implement **consistent hashing** to balance load between services.
-
-### **DSA Concepts Covered**
-- **Sharded Counters:** Solve the **Top-K problem** with distributed counters.
-- **Consistent Hashing:** Ensure scalability in load balancing.
-
-### **Local Setup Alternatives**
-- Use **SQLite/PostgreSQL** with indexed queries.
-- Implement **sharding logic** in code to simulate counters.
+#### **Backend (Spring Boot):**
+- **Sets:** Track active sessions or services connected.
+- **LRU Cache:** Use Redis to cache frequently accessed feed data.
+- **Load Balancing Algorithms:** Ensure the backend handles requests efficiently across services in **Google Cloud Run**.
 
 ---
 
-## **Week 7: Testing, Debugging, and Deployment**
+## **Summary of DSA Usage Across Frontend & Backend**
 
-### **Objectives**
-- Write **unit, integration, and load tests**.
-- Conduct **code reviews and debugging**.
-- Prepare for **deployment to cloud** and local environments.
+| **DSA Concept**          | **Frontend (React)**                                     | **Backend (Spring Boot)**                                  |
+|--------------------------|----------------------------------------------------------|-----------------------------------------------------------|
+| **Hash Maps**             | Manage form states and API responses                     | Store user sessions, tokens, and cache lookups             |
+| **Arrays / Linked Lists** | Render tweets sequentially in the UI                     | Store tweets and retrieve them in order of posting         |
+| **Graphs**                | Maintain user relationships (followers/following) locally| Manage user relationships and perform graph traversals     |
+| **Priority Queue / Heap** | Sort tweets locally before rendering                     | Manage and sort tweets by timestamp for feeds              |
+| **Trie**                  | Handle hashtag autocomplete in the UI                    | Store hashtags and enable efficient prefix-based search    |
+| **Inverted Index**        | Store and filter search results locally                  | Map keywords to tweets and optimize backend search queries |
+| **LRU Cache**             | Cache UI components and timelines                        | Cache timeline feeds and search results using Redis        |
+| **Graph Traversal**       | -                                                        | Suggest mutual followers using BFS/DFS                     |
+| **Pagination Algorithms** | Paginate tweets for better UX                            | Implement pagination for API responses                     |
+| **Sorting Algorithms**    | Sort tweets by timestamp                                 | Merge and sort tweets from multiple users for feeds        |
 
-### **Instructor Demo (Cloud)**
-- Set up **CI/CD pipelines** using GitHub Actions.
-- Demonstrate deployment to **Google Cloud Kubernetes**.
-
-### **Student Focus**
-- Write **Jest tests for frontend** and **JUnit tests for backend**.
-- Perform **load testing** locally using **JMeter**.
-- Deploy the application locally with **Docker Compose**.
-
-### **DSA Concepts Covered**
-- **Big O Notation:** Analyze time complexities of key operations.
-- **Queues:** Manage load testing queues effectively.
-
-### **Local Setup Alternatives**
-- Use **local Git hooks** for automated testing.
-- Deploy services locally with **Docker Compose**.
-
----
-
-## **Week 8: Final Review and Wrap-up**
-
-### **Objectives**
-- Conduct a final **review of the project**.
-- Ensure all features are functioning and optimized.
-- Present the project and **reflect on DSA learnings**.
-
-### **Instructor Demo (Cloud)**
-- Walk through the **full system architecture** in cloud.
-- Discuss **trade-offs in system design and scalability**.
-
-### **Student Focus**
-- Document the project and submit **code to GitHub**.
-- Present individual contributions and reflect on **DSA concepts** learned.
-
----
-
-## **Summary of DSA Topics Covered**
-
-| **Data Structure**     | **Use Case in the Project**                     |
-|------------------------|-------------------------------------------------|
-| **Hash Tables**         | JWTs, Redis cache, session management          |
-| **Arrays/Lists**        | Storing tweets, user data                      |
-| **Linked Lists**        | Managing profile updates, tweet sequences      |
-| **Queues**              | Handling timelines, notifications              |
-| **Graphs**              | User relationships (Follow/Unfollow)           |
-| **Binary Search**       | Optimized search functionality                 |
-| **Sorting Algorithms**  | Sorting tweets by timestamp                    |
-| **Sharded Counters**    | Top-K trending topics and hashtags             |
-| **Consistent Hashing**  | Load balancing and scaling                     |
-
----
-if you need **setup instructions or code templates** for any of the tools mentioned!
-```
