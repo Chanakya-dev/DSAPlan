@@ -208,3 +208,10 @@
 ---
 
 ## **Summary**
+** improvements....
+Media Uploads and Previews
+Likes, Retweets, and Notifications
+Password Recovery Flow
+Infinite Scrolling for Feed
+Trending Hashtags
+These additions will enhance the user experience and align the project closer to real-world requirements. With these updates, your app will be feature-complete and ready for deployment.
