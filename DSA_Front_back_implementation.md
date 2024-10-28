@@ -1,141 +1,210 @@
-### **DSA (Data Structures and Algorithms) Usage in Frontend and Backend**
-
-## **Frontend (React) DSA Usage**
-
-1. **Arrays / Lists**  
-   - **Use Case:**  
-     - Store and render collections of tweets, comments, notifications, and followers.  
-     - Example: Rendering lists of tweets dynamically as the user scrolls (infinite scrolling).  
-   - **Implementation:**  
-     - `useState` to manage state arrays, map functions for rendering lists.
-
-2. **Stacks**  
-   - **Use Case:**  
-     - Implement **undo/redo** functionality in text editors (e.g., tweet drafts).
-     - Browser history management when navigating between pages.  
-   - **Implementation:**  
-     - Store drafts or input changes using JavaScript stacks.
-
-3. **Queues (FIFO)**  
-   - **Use Case:**  
-     - **Notification queue**: Handle pop-up notifications, processing them one by one.  
-     - **Messages queue**: Simulate real-time messages waiting to be processed or displayed.  
-   - **Implementation:**  
-     - Use JavaScript arrays as queues (push/pop).
-
-4. **Hash Maps (Objects)**  
-   - **Use Case:**  
-     - Cache user information (username, profile picture) locally to reduce redundant API calls.
-     - Store **key-value pairs** for managing component states and rendering optimizations.
-   - **Implementation:**  
-     - Use JavaScript objects to store cached data efficiently.
-
-5. **Binary Search**  
-   - **Use Case:**  
-     - Search through **sorted lists** (e.g., search users, hashtags, or tweets).  
-     - Optimize **autocomplete** by finding matching prefixes quickly.
-   - **Implementation:**  
-     - Implement custom binary search functions on sorted data.
-
-6. **Sorting Algorithms**  
-   - **Use Case:**  
-     - Sort tweets by **timestamp** for displaying the timeline.
-     - Sort followers or messages alphabetically or by date.
-   - **Implementation:**  
-     - Use JavaScript’s built-in `sort()` method for arrays.
-
-7. **Graphs** (Conceptual Implementation)  
-   - **Use Case:**  
-     - Handle **social connections** (e.g., following/followers) in the UI.
-     - Navigate through relationships for displaying mutual followers or suggestions.
-   - **Implementation:**  
-     - Use **adjacency lists** to represent and render follower/following relationships dynamically.
+## **Complete Implementation Plan for Twitter-like App with React and Spring Boot**
 
 ---
 
-## **Backend (Spring Boot + PostgreSQL + Redis) DSA Usage**
+### **Phase 1: Planning & Design**
 
-1. **Hash Tables / Hash Maps**  
-   - **Use Case:**  
-     - Store **sessions and JWT tokens** in Redis for fast lookups.
-     - Cache frequently accessed data (e.g., user profiles, tweet counts).
-   - **Implementation:**  
-     - Use Redis (hash-based data structure) to manage cache.
-     - Store JWT tokens as key-value pairs for session management.
+#### **Week 0 - Kickoff**
+1. **Scope Discussion**:  
+   - Define core features (Login, Tweet Posting, Timeline, Followers, Search).
+   - Finalize tech stack:  
+     - **Frontend**: React + Redux  
+     - **Backend**: Spring Boot + MongoDB/SQL  
+     - **Cloud**: Google Cloud Run + Redis + Firebase Authentication  
+     - **DevOps**: GitHub Actions for CI/CD
 
-2. **Arrays / Lists**  
-   - **Use Case:**  
-     - Handle collections of tweets, comments, and followers in APIs.
-     - Store multiple records from SQL queries and pass them as responses.
-   - **Implementation:**  
-     - Use **Java Lists or Arrays** to manage data collections within Spring Boot services.
+2. **Wireframes & Design**:  
+   - Use **Figma/Balsamiq** for wireframes.
+   - Design core screens:
+     - Login & Registration
+     - Home Feed
+     - Profile Page
+     - Create Tweet Modal
+     - Followers/Following List
+     - Search Results with Hashtags
 
-3. **Linked Lists**  
-   - **Use Case:**  
-     - Manage **profile update history** or changes in tweets.
-     - Handle **pagination**: Store pointers to next/previous pages of tweets.
-   - **Implementation:**  
-     - Use **linked list implementations** for sequential data updates.
-
-4. **Queues (FIFO)**  
-   - **Use Case:**  
-     - Manage **notifications** and **event-driven messages** using Kafka or Google Pub/Sub.
-     - Handle asynchronous operations like sending email confirmations or notifications.
-   - **Implementation:**  
-     - Use **Java Queues** and integrate with **Kafka or Pub/Sub** for messaging.
-
-5. **Graphs**  
-   - **Use Case:**  
-     - Model **user relationships** (Follow/Unfollow) with graphs.
-     - Implement recommendations (e.g., "People you may know") based on mutual connections.
-   - **Implementation:**  
-     - Use **adjacency lists** in SQL with **JOIN queries** to model user relationships.
-
-6. **Binary Search Trees / B-Trees**  
-   - **Use Case:**  
-     - Handle database indexing to optimize search queries (e.g., users, tweets).
-   - **Implementation:**  
-     - **PostgreSQL uses B-trees** for indexing tables.
-
-7. **Sharded Counters (Distributed Counting)**  
-   - **Use Case:**  
-     - Manage **likes, retweets, and views** efficiently at scale using sharded counters.
-   - **Implementation:**  
-     - Use **Redis counters** or sharded counters in Cloud Datastore to distribute the load.
-
-8. **Sorting Algorithms**  
-   - **Use Case:**  
-     - Sort tweets or notifications by **timestamp**.
-   - **Implementation:**  
-     - Sort data within **SQL queries** or backend logic before sending responses.
-
-9. **Consistent Hashing**  
-   - **Use Case:**  
-     - Implement **load balancing** to distribute traffic between multiple backend services.
-   - **Implementation:**  
-     - Use consistent hashing algorithms in backend code or via **Cloud Run** load balancing.
+3. **Set Up Repositories**:  
+   - Create GitHub repositories for:
+     - **Frontend**: React App
+     - **Backend**: Spring Boot Microservices (Auth, Tweet, Follow, Feed, Search)
+   - Set up **branching strategy** (feature branches, main branch).
+   - Create **Kanban board** in **GitHub Projects** for task tracking.
 
 ---
 
-### **Summary of DSA in Frontend and Backend**
+### **Phase 2: Authentication & User Management**
 
-| **DSA Concept**           | **Frontend Usage (React)**                    | **Backend Usage (Spring Boot + Cloud)**        |
-|---------------------------|------------------------------------------------|-----------------------------------------------|
-| **Arrays / Lists**         | Render tweets, notifications, and followers  | Store tweet collections and API responses    |
-| **Stacks**                | Manage undo/redo or navigation history       | N/A                                           |
-| **Queues (FIFO)**          | Manage notifications and messages           | Event-driven messaging (Kafka, Pub/Sub)      |
-| **Hash Maps / Hash Tables**| Cache UI data and API results               | Store JWTs, sessions, and cache (Redis)      |
-| **Binary Search**          | Optimize search and autocomplete            | Index queries with PostgreSQL B-trees        |
-| **Sorting Algorithms**     | Sort tweets or followers in UI              | Sort tweets and data in backend responses    |
-| **Graphs**                 | Display follower relationships              | Model user connections with SQL joins        |
-| **Linked Lists**           | Manage tweet sequences and pagination       | Store profile update history                |
-| **Sharded Counters**       | N/A                                          | Count likes, retweets, views efficiently     |
-| **Consistent Hashing**     | N/A                                          | Load balancing across services               |
+#### **Week 1 - Authentication Microservice**
+
+1. **Backend Tasks**:
+   - Implement **Firebase Authentication** for login and registration.
+   - Create Spring Boot Auth API:
+     - `/user/register`
+     - `/user/login`
+     - `/user/profile`
+   - Store user profiles in **MongoDB Atlas** or SQL.
+
+2. **Frontend Tasks**:
+   - Build **Login/Registration** forms using React.
+   - Use **Redux** to manage authentication state.
+   - Integrate Firebase Authentication with React.
+
+3. **Testing**:
+   - Use **Postman** to test the Auth API.
+   - Ensure frontend and backend integration is seamless.
 
 ---
 
-### **Conclusion**
+### **Phase 3: Tweet Management**
 
-- **Frontend (React)** focuses more on **UI state management** with arrays, stacks, and queues to handle tweets, notifications, and history.  
-- **Backend (Spring Boot + PostgreSQL + Redis)** emphasizes efficient **caching, search, event-driven processing**, and **graph relationships** to ensure scalability and performance.  
-This combination gives students practical experience with real-world use cases of DSA across both the frontend and backend, enhancing their understanding of **distributed systems, caching strategies, and search optimization.**
+#### **Week 2 - Tweet Microservice**
+
+1. **Backend Tasks**:
+   - Create CRUD API for tweets in Spring Boot:
+     - `/tweet/create`
+     - `/tweet/get/{userId}`
+     - `/tweet/delete`
+   - Store tweets with timestamps and user references in **MongoDB** or **SQL** (using **B-Tree indexing** for fast retrieval).
+
+2. **Frontend Tasks**:
+   - Build the **Tweet Creation Modal** in React.
+   - Display tweets in a **feed** using **arrays** and **sorting by timestamp**.
+   - Use **Redux** to manage tweets in the state.
+
+3. **Testing**:
+   - Test tweet creation, retrieval, and deletion using **Postman**.
+   - Verify that tweets are displayed in chronological order on the frontend.
+
+---
+
+### **Phase 4: Follow System**
+
+#### **Week 3 - Follow Microservice**
+
+1. **Backend Tasks**:
+   - Implement **Graph-based APIs** to manage followers and following:
+     - `/follow`
+     - `/followers/{userId}`
+     - `/following/{userId}`
+   - Store relationships in **MongoDB/SQL** using **adjacency lists**.
+
+2. **Frontend Tasks**:
+   - Build the **Followers/Following List** component.
+   - Allow users to **follow/unfollow** others from profiles and search results.
+
+3. **Algorithms**:
+   - Use **DFS/BFS** to suggest mutual followers.
+
+4. **Testing**:
+   - Test follow APIs using **Postman**.
+   - Ensure follower and following lists update correctly on the frontend.
+
+---
+
+### **Phase 5: Timeline Feed Generation**
+
+#### **Week 4 - Feed Microservice**
+
+1. **Backend Tasks**:
+   - Aggregate tweets from followed users using **Merge Sort**.
+   - Use **Redis** (optional) to cache timeline feeds.
+   - Create API: `/feed/{userId}`.
+
+2. **Frontend Tasks**:
+   - Build the **Home Timeline Feed** component.
+   - Display aggregated tweets sorted by timestamp using **Priority Queues** or **local arrays**.
+
+3. **Testing**:
+   - Use **Postman** to test the feed API.
+   - Verify that tweets from followed users appear in the correct order.
+
+---
+
+### **Phase 6: Search Functionality with Hashtags**
+
+#### **Week 5 - Search Microservice**
+
+1. **Backend Tasks**:
+   - Implement a **Trie** to store hashtags for fast autocomplete.
+   - Create an **Inverted Index** to map keywords to tweets.
+   - Build API: `/search?q={query}`.
+
+2. **Frontend Tasks**:
+   - Build the **Search Bar** in React with **autocomplete**.
+   - Display search results with relevant tweets and hashtags.
+
+3. **Algorithms**:
+   - Use **Trie Traversal** for hashtag autocomplete.
+   - Optimize search queries using **inverted indexes**.
+
+4. **Testing**:
+   - Use **Postman** to test search queries.
+   - Ensure autocomplete suggestions are accurate on the frontend.
+
+---
+
+### **Phase 7: Integration, Optimization, and Cloud Deployment**
+
+#### **Week 6 - Integration and Deployment**
+
+1. **Backend Tasks**:
+   - Integrate all microservices (Auth, Tweet, Follow, Feed, Search).
+   - Use **Redis** for caching feeds and search results.
+   - Implement **LRU Cache** to optimize API performance.
+
+2. **Frontend Tasks**:
+   - Ensure all components (Login, Feed, Profile, Search) are working together.
+   - Add **error handling** and **loading states** in React.
+
+3. **Cloud Deployment**:
+   - Use **Google Cloud Run** to deploy backend microservices.
+   - Set up **CI/CD pipelines** with **GitHub Actions**.
+   - Configure **Redis** on Google Cloud for caching.
+
+4. **Testing**:
+   - Perform **unit tests** and **integration tests** locally.
+   - Use **Postman collections** for end-to-end API testing.
+   - Test the deployed app on **Google Cloud** for any bugs.
+
+---
+
+## **Development Workflow Overview**
+
+### **Daily Routine**:
+- Use **GitHub Projects** to track tasks.
+- Have **daily stand-ups** to review progress and blockers.
+
+### **Weekly Reviews**:
+- Conduct **weekly demos** to showcase progress.
+- Identify any **issues** and plan solutions.
+
+### **Branching Strategy**:
+- Use **feature branches** for new features.
+- Merge into the **main branch** after code reviews.
+
+### **Testing Process**:
+- Write **unit tests** for each microservice.
+- Perform **integration tests** once services are connected.
+- Use **Postman** and **Jest** to validate frontend-backend interaction.
+
+---
+
+## **Final Deliverables**
+1. **Fully Functional App**:
+   - Users can register, log in, post tweets, follow others, view feeds, and search with hashtags.
+   
+2. **Deployed Application**:
+   - Backend on **Google Cloud Run**.
+   - Frontend served from **Firebase Hosting** or another service.
+   
+3. **Documentation**:
+   - README files for each repository with setup instructions.
+   - API documentation (using **Swagger** or a similar tool).
+
+4. **Post-Launch Plan**:
+   - Monitor performance on Google Cloud.
+   - Plan for additional features (e.g., notifications, DMs).
+
+---
+
+## **Summary**
