@@ -94,3 +94,17 @@
 - **Total HackerRank Points**: 2200
 - **Total LeetCode Points**: 550
 - **Combined Total Points**: 2750
+
+---
+
+# Interview Rules
+
+- Every week, there will be interviews on **Saturday**.
+- During the interview, the individual should:
+  - Provide a **self-introduction**.
+  - Discuss the **work completed that week**, particularly the features implemented and DSA concepts covered.
+  - Present their **documentation** for the week to support their explanations.
+- Questions will be asked based on:
+  - The self-introduction.
+  - The features implemented that week.
+  - The DSA concepts covered in that week.
