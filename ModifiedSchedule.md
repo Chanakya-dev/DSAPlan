@@ -13,13 +13,16 @@
 
 #### List of Problems
 - **HackerRank**
-  - [Frequency Queries](https://www.hackerrank.com/challenges/frequency-queries/problem) - 40 points
+    - [Two Strings](https://www.hackerrank.com/challenges/two-strings/problem) - 25 points
+  - [Ransom Note](https://www.hackerrank.com/challenges/ransom-note/problem) - 25 points
   - [Count Triplets](https://www.hackerrank.com/challenges/count-triplets-1/problem) - 50 points
-  - [Check Magazine](https://www.hackerrank.com/challenges/ctci-ransom-note/problem) - 25 points
-  - [Two Strings](https://www.hackerrank.com/challenges/two-strings/problem) - 25 points
   - [Sherlock and Anagrams](https://www.hackerrank.com/challenges/sherlock-and-anagrams/problem) - 50 points
-  - [HashMap and Algorithmic Challenges](https://www.hackerrank.com/challenges/hashmap-and-algorithmic-challenges/problem) - 70 points
-
+  - [Pairs](https://www.hackerrank.com/challenges/pairs/problem) - 30 points
+  - [Ice Cream Parlor](https://www.hackerrank.com/challenges/ice-cream-parlor/problem) - 50 points
+  - [Subarray Division](https://www.hackerrank.com/challenges/subarray-division/problem) - 20 points
+  - [Sock Merchant](https://www.hackerrank.com/challenges/sock-merchant/problem) - 30 points
+  - [Maximum Number of Occurrences](https://www.hackerrank.com/challenges/maximum-number-of-occurrences/problem) - 30 points
+  - [Subarray with Given Sum](https://www.hackerrank.com/challenges/subarray-with-given-sum/problem) - 30 points
 - **LeetCode**
   - [Two Sum](https://leetcode.com/problems/two-sum/) - 50 points
   - [Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) - 50 points
