@@ -13,12 +13,16 @@
 
 #### List of Problems
 - **HackerRank**
-  - [Frequency Queries](https://www.hackerrank.com/challenges/frequency-queries/problem) - 40 points
-  - [Count Triplets](https://www.hackerrank.com/challenges/count-triplets-1/problem) - 50 points
-  - [Check Magazine](https://www.hackerrank.com/challenges/ctci-ransom-note/problem) - 25 points
-  - [Two Strings](https://www.hackerrank.com/challenges/two-strings/problem) - 25 points
-  - [Sherlock and Anagrams](https://www.hackerrank.com/challenges/sherlock-and-anagrams/problem) - 50 points
-  - [HashMap and Algorithmic Challenges](https://www.hackerrank.com/challenges/hashmap-and-algorithmic-challenges/problem) - 70 points
+ - **[Two Strings](https://www.hackerrank.com/challenges/two-strings/problem)**
+ - **[Ransom Note](https://www.hackerrank.com/challenges/ransom-note/problem)**
+ -  **[Count Triplets](https://www.hackerrank.com/challenges/count-triplets-1/problem)**
+ - **[Sherlock and Anagrams](https://www.hackerrank.com/challenges/sherlock-and-anagrams/problem)**
+ - **[Pairs](https://www.hackerrank.com/challenges/pairs/problem)**
+ - **[Ice Cream Parlor](https://www.hackerrank.com/challenges/ice-cream-parlor/problem)**
+ - **[Subarray Division](https://www.hackerrank.com/challenges/subarray-division/problem)**
+ - **[Sock Merchant](https://www.hackerrank.com/challenges/sock-merchant/problem)**
+ - **[Maximum Number of Occurrences](https://www.hackerrank.com/challenges/maximum-number-of-occurrences/problem)**
+ - **[Subarray with Given Sum](https://www.hackerrank.com/challenges/subarray-with-given-sum/problem)** 
 
 - **LeetCode**
   - [Two Sum](https://leetcode.com/problems/two-sum/) - 50 points
