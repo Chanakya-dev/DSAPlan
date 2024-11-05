@@ -14,7 +14,6 @@
 #### List of Problems
 - **HackerRank**
   - [Two Strings](https://www.hackerrank.com/challenges/two-strings/problem) - 25 points
-  - [Compare Triplets](https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true) - 50 points
   - [Sherlock and Anagrams](https://www.hackerrank.com/challenges/sherlock-and-anagrams/problem) - 50 points
   - [Pairs](https://www.hackerrank.com/challenges/pairs/problem) - 30 points
   - [Sock Merchant](https://www.hackerrank.com/challenges/sock-merchant/problem) - 30 points
